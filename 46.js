@@ -20,33 +20,51 @@ What is the smallest odd composite that cannot be written as the sum of a prime 
 
 // Solution 46
 
-var sayi = 5777;
 var kuraliSaglamayanSayi = 0;
 
-function kuralSaglaniyorMu(sayi){
-    let sonuc = "";
-    for (let i = 1; i < sayi; i += 2) {
-        for (let j = 1; j < sayi; j++) {
-            let sayi2 = i + (2 * Math.pow(j, 2));
+function sayiAsalMi(sayi){
+    if (sayi === 1){
+        return false;
+    }
+    if (sayi === 2){
+        return true;
+    }else{
+        for (let i = 2; i < sayi; i++) {
+            if(sayi % i === 0){
+                return false;
+            }
+        }
+        return true;
+    }
+}
 
-            if (sayi == sayi2){
-                sonuc = "kural sağlandı " + sayi.toString() + " = " + i.toString() + "(2 * " + j.toString() + "^2)";
-                break;
-            }else{
-                sonuc = "kural sağlanmıyor";
+function kuralSaglaniyorMu(sayi){
+    //let sonuc = "";
+    let sonuc = false;
+    for (let i = 1; i < sayi + 2; i++){
+        if (sayiAsalMi(i)){
+            for (let j = 1; j < sayi + 2; j++) {
+                let sayi2 = i + (2 * Math.pow(j, 2));
+                if (sayi === sayi2){
+                    //sonuc = "kural sağlandı " + sayi.toString() + " = " + i.toString() + " + (2 * " + j.toString() + "^2)";
+                    sonuc = true;
+                    break;
+                }else{
+                    //sonuc = "kural sağlanmıyor";
+                    sonuc = false;
+                }
             }
         }
     }
     return sonuc;
 }
-console.log(kuralSaglaniyorMu(sayi));
-/*
-for (let i = 1; i < 5775; i += 2) {
-    if (kuralSaglaniyorMu(i) === "kural sağlanmıyor"){
+
+for (let i = 7; i < 10000; i+=2) {
+    if (kuralSaglaniyorMu(i) === false){
         kuraliSaglamayanSayi = i;
         break;
-    }else{
-        kuraliSaglamayanSayi = 0;
     }
 }
-console.log(kuraliSaglamayanSayi);*/
+
+//console.log(kuraliSaglamayanSayi);
+console.log(kuralSaglaniyorMu(11));
