@@ -41,30 +41,35 @@ function sayiAsalMi(sayi){
 function kuralSaglaniyorMu(sayi){
     //let sonuc = "";
     let sonuc = false;
-    for (let i = 1; i < sayi + 2; i++){
-        if (sayiAsalMi(i)){
-            for (let j = 1; j < sayi + 2; j++) {
-                let sayi2 = i + (2 * Math.pow(j, 2));
-                if (sayi === sayi2){
-                    //sonuc = "kural sağlandı " + sayi.toString() + " = " + i.toString() + " + (2 * " + j.toString() + "^2)";
-                    sonuc = true;
-                    break;
-                }else{
-                    //sonuc = "kural sağlanmıyor";
-                    sonuc = false;
+    if (sayiAsalMi(sayi) === false){
+        for (let i = 1; i < sayi; i++){
+            if (sayiAsalMi(i)){
+                for (let j = 1; j < sayi; j++) {
+                    let sayi2 = i + (2 * (j**2));
+                    //console.log("kural sağlandı " + sayi.toString() + " = " + i.toString() + " + (2 * " + j.toString() + "^2)");
+                    if (sayi === sayi2){
+                        //sonuc = "kural sağlandı " + sayi.toString() + " = " + i.toString() + " + (2 * " + j.toString() + "^2)";
+                        //console.log("kural sağlandı " + sayi.toString() + " = " + i.toString() + " + (2 * " + j.toString() + "^2)");
+                        sonuc = true;
+                        break;
+                    }else{
+                        //sonuc = "kural sağlanmıyor";
+                        sonuc = false;
+                    }
                 }
             }
+            if(sonuc) break;
         }
+        return sonuc;
     }
-    return sonuc;
 }
 
-for (let i = 7; i < 10000; i+=2) {
+for (let i = 3; i < 10000; i+=2) {
     if (kuralSaglaniyorMu(i) === false){
         kuraliSaglamayanSayi = i;
         break;
     }
 }
 
-//console.log(kuraliSaglamayanSayi);
-console.log(kuralSaglaniyorMu(11));
+console.log(kuraliSaglamayanSayi);
+//console.log(kuralSaglaniyorMu(11));
